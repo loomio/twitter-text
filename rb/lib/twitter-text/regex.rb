@@ -150,11 +150,12 @@ module Twitter
 
     REGEXEN[:valid_mention_preceding_chars] = /(?:[^a-zA-Z0-9_!#\$%&*@＠]|^|(?:^|[^a-zA-Z0-9_+~.-])[rR][tT]:?)/o
     REGEXEN[:at_signs] = /[@＠]/
+    REGEXEN[:max_mention_length] = 30
     REGEXEN[:valid_mention_or_list] = /
-      (#{REGEXEN[:valid_mention_preceding_chars]})  # $1: Preceeding character
-      (#{REGEXEN[:at_signs]})                       # $2: At mark
-      ([a-zA-Z0-9_]{1,20})                          # $3: Screen name
-      (\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?             # $4: List (optional)
+      (#{REGEXEN[:valid_mention_preceding_chars]})      # $1: Preceeding character
+      (#{REGEXEN[:at_signs]})                           # $2: At mark
+      ([a-zA-Z0-9_]{1,#{REGEXEN[:max_mention_length]}}) # $3: Screen name
+      (\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?                 # $4: List (optional)
     /ox
     REGEXEN[:valid_reply] = /^(?:#{REGEXEN[:spaces]})*#{REGEXEN[:at_signs]}([a-zA-Z0-9_]{1,20})/o
     # Used in Extractor for final filtering
